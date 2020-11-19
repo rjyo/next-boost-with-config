@@ -2,7 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import getConfig from "next/config";
 
-export default function Home({ now, folder }) {
+export default function Home({ now, secret, folder }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,7 +12,8 @@ export default function Home({ now, folder }) {
 
       <main className={styles.main}>
         <div>now: {now}</div>
-        <div>folder: {folder}</div>
+        <div>folder(public): {folder}</div>
+        <div>secret(server): {secret}</div>
       </main>
     </div>
   );
@@ -28,6 +29,7 @@ export const getServerSideProps = async ({ params }) => {
   return {
     props: {
       now: new Date().toISOString(),
+      secret: serverRuntimeConfig.mySecret,
       folder: publicRuntimeConfig.staticFolder,
     },
   };
